@@ -5,15 +5,22 @@
 def user_input():
     # loops until user inputs a valid command
     while True:
-        command = input("enter a command (write, read, exit): ").strip().lower()
-        if command in ["write", "read", "exit"]:
-            return command
-        else:
-            print("Invalid command. Please try again.")
+        try:
+            command = input("enter a command (write, read, exit): ").strip().lower()
+            if command in ["write", "read", "exit"]:
+                return command
+            else:
+                print("Invalid command. Please try again.")
+        except KeyboardInterrupt:
+            print("keyboard interrupt, killing program...")
+            exit()
 
 def write_entry(entries):
     # write a diary entry
-    entry = input("enter your diary entry: ").strip()
+    try:
+        entry = input("enter your diary entry: ").strip()
+    except KeyboardInterrupt:
+        print("keyboard interrupt, killing program...")
     entries.append(entry)
     with open("diary.txt", "a") as f:
         f.write(entry + "\n")
